@@ -1,0 +1,44 @@
+.button {
+  color: var(--text-body);
+  background: var(--button-normal);
+  &:hover {
+    background: var(--button-hover);
+  }
+  &:active {
+    background: var(--button-active);
+  }
+  &:focus {
+    outline: var(--border-focused);
+  }
+  &:disabled {
+    background: var(--button-disabled);
+  }
+
+  &.large {
+    padding: 16px;
+    min-width: 136px;
+    height: 56px;
+    border-radius: 8px;
+  }
+
+  &.medium {
+    padding: 16px;
+    min-width: 96px;
+    height: 48px;
+    border-radius: 8px;
+  }
+
+  &.small {
+    padding: 12px;
+    min-width: 80px;
+    height: 36px;
+    border-radius: 6px;
+  }
+
+  &.XSmall {
+    padding: 8px;
+    min-width: 72px;
+    height: 28px;
+    border-radius: 4px;
+  }
+}

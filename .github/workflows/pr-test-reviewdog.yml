@@ -13,6 +13,15 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+      - name: allow write in work dir
+        run: sudo chmod -R 777 .
+      - name: Install Dependencies
+        run: |
+          npm -g install pnpm
+          pnpm install
       - uses: reviewdog/action-eslint@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

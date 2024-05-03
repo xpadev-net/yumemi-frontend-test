@@ -1,0 +1,37 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  .label {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    .required {
+      color: var(--text-alert);
+    }
+  }
+  .input {
+    height: 56px;
+    padding: 16px;
+    font-size: var(--body-L-fontsize);
+    font-weight: var(--body-L-weight);
+    border: solid 1px var(--border-field);
+    border-radius: 8px;
+    background: var(--background-secondary);
+    color: var(--text-body);
+    &::placeholder {
+      color: var(--text-placeholder);
+    }
+    &:focus {
+      border-color: var(--border-focused);
+    }
+    &:invalid {
+      border-color: var(--border-alert);
+    }
+    &:disabled {
+      border-color: var(--border-disabled);
+      background: var(--background-tertiary);
+      color: var(--text-disabled);
+    }
+  }
+}

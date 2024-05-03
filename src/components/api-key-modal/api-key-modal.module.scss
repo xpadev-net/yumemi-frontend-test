@@ -1,0 +1,19 @@
+.overlay {
+  position: fixed;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  .body {
+    background-color: #070f2b;
+    padding: 16px;
+    .title {
+      font-size: 24px;
+      margin-bottom: 24px;
+    }
+  }
+}

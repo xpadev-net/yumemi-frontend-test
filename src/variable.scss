@@ -39,6 +39,17 @@
 
   --chart-primary: #0017c1;
   --chart-secondary: #4979f5;
+
+  --body-L-fontsize: 16px;
+  --body-L-weight: 400;
+  --body-M-fontsize: 14px;
+  --body-M-weight: 400;
+  --label-L-fontsize: 14px;
+  --label-L-weight: 500;
+  --label-M-fontsize: 12px;
+  --label-M-weight: 500;
+  --button-fontsize: 16px;
+  --button-weight: 700;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -1,17 +1,40 @@
 .button {
-  color: var(--text-body);
-  background: var(--button-normal);
-  &:hover {
-    background: var(--button-hover);
+  &.primary {
+    color: var(--text-on-fill);
+    background: var(--button-normal);
+    border: none;
+    &:hover {
+      background: var(--button-hover);
+    }
+    &:active {
+      background: var(--button-active);
+    }
+    &:focus {
+      outline: solid 1px var(--border-focused);
+      outline-offset: 2px;
+    }
+    &:disabled {
+      background: var(--button-disabled);
+    }
   }
-  &:active {
-    background: var(--button-active);
-  }
-  &:focus {
-    outline: var(--border-focused);
-  }
-  &:disabled {
-    background: var(--button-disabled);
+
+  &.secondary {
+    color: var(--button-normal);
+    background: var(--background-primary);
+    border: solid 1px var(--button-normal);
+    &:hover {
+      background: var(--background-tertiary);
+    }
+    &:active {
+      background: var(--background-secondary);
+    }
+    &:focus {
+      outline: solid 1px var(--border-focused);
+      outline-offset: 2px;
+    }
+    &:disabled {
+      background: var(--background-tertiary);
+    }
   }
 
   &.large {

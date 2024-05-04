@@ -5,10 +5,13 @@ import { Button } from "./button.tsx";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-  component: (props: Pick<ComponentProps<typeof Button>, "variant">) => (
-    <Button {...props}>{props.variant}</Button>
-  ),
-} satisfies Meta<{ variant: "XSmall" | "small" | "medium" | "large" }>;
+  component: (
+    props: Pick<ComponentProps<typeof Button>, "variant" | "size">,
+  ) => <Button {...props}>{props.variant}</Button>,
+} satisfies Meta<{
+  size: "XSmall" | "small" | "medium" | "large";
+  variant: "primary" | "secondary";
+}>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -16,21 +19,25 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Large: Story = {
   args: {
-    variant: "large",
+    size: "large",
+    variant: "primary",
   },
 };
 export const Medium: Story = {
   args: {
-    variant: "medium",
+    size: "medium",
+    variant: "primary",
   },
 };
 export const Small: Story = {
   args: {
-    variant: "small",
+    size: "small",
+    variant: "primary",
   },
 };
 export const XSmall: Story = {
   args: {
-    variant: "XSmall",
+    size: "XSmall",
+    variant: "primary",
   },
 };

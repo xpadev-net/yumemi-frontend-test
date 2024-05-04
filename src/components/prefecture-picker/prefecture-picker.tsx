@@ -45,7 +45,11 @@ export const PrefecturePicker: FC<Props> = ({
     return (
       <div className={styles.error}>
         <div className={styles.container}>
-          <h2>都道府県データの取得に失敗しました</h2>
+          <h2 className={styles.title}>
+            都道府県データの取得に
+            <wbr />
+            失敗しました
+          </h2>
           <div className={styles.control}>
             <Button
               size={"medium"}

@@ -32,6 +32,7 @@ export const Graph: FC<Props> = ({ data, range, onRangeChange }) => {
     getVerticalRange(data),
   );
   const [hiddenKeys, setHiddenKeys] = useState<string[]>([]);
+  const [colors, setColors] = useState<Record<string, string>>({});
 
   const zoom = () => {
     setDragStart(undefined);
@@ -57,6 +58,18 @@ export const Graph: FC<Props> = ({ data, range, onRangeChange }) => {
   useEffect(() => {
     setVerticalRange(getVerticalRange(data, range));
   }, [data, range]);
+
+  useEffect(() => {
+    const keys = Object.keys(data[0]).filter((key) => key !== "name");
+    setColors((pv) => {
+      for (const key of keys) {
+        pv[key] ??= `#${Math.floor(Math.random() * 16777215)
+          .toString(16)
+          .padStart(6, "0")}`;
+      }
+      return { ...pv };
+    });
+  }, [data]);
 
   return (
     <ResponsiveContainer width="100%" height={400}>
@@ -85,7 +98,7 @@ export const Graph: FC<Props> = ({ data, range, onRangeChange }) => {
               key={key}
               type="natural"
               dataKey={key}
-              stroke="#8884d8"
+              stroke={colors[key]}
               hide={hiddenKeys.includes(key)}
             />
           ))}

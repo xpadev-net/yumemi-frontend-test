@@ -5,6 +5,7 @@ import { useState } from "react";
 import viteLogo from "/vite.svg";
 import reactLogo from "@/assets/react.svg";
 import { ApiKeyModal } from "@/components/api-key-modal/api-key-modal.tsx";
+import { PopulationGraph } from "@/components/population-graph/population-graph.tsx";
 import { PrefecturePicker } from "@/components/prefecture-picker/prefecture-picker.tsx";
 
 function App() {
@@ -20,6 +21,9 @@ function App() {
         selectedPrefectureIds={selectedPrefectureIds}
         onChange={setSelectedPrefectureIds}
       />
+      {selectedPrefectureIds.length > 0 && (
+        <PopulationGraph selectedPrefIds={selectedPrefectureIds.map(Number)} />
+      )}
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />

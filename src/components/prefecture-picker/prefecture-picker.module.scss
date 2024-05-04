@@ -15,7 +15,10 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    color: var(--text-alert);
+    .title {
+      color: var(--text-alert);
+      word-break: keep-all;
+    }
     .control {
       display: flex;
       flex-direction: row;

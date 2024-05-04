@@ -5,9 +5,9 @@ import { TPopulationCompositionResponse } from "@/@types/api/populationCompositi
 import { TApiResponse } from "@/@types/api/response";
 import { getPopulationCompositionPerYear } from "@/services";
 
-export const usePopulationComposition = (prefCodes: string[]) => {
+export const usePopulationComposition = (prefCodes: number[]) => {
   const [data, setData] =
-    useState<TApiResponse<Record<string, TPopulationCompositionResponse>>>();
+    useState<TApiResponse<Record<number, TPopulationCompositionResponse>>>();
   const [loading, setLoading] = useState<boolean>(false);
 
   const fetchData = useCallback(async () => {
@@ -15,7 +15,7 @@ export const usePopulationComposition = (prefCodes: string[]) => {
     const response = await Promise.all(
       prefCodes.map(async (prefCode) => {
         return {
-          data: await getPopulationCompositionPerYear(Number(prefCode)),
+          data: await getPopulationCompositionPerYear(prefCode),
           prefCode,
         };
       }),

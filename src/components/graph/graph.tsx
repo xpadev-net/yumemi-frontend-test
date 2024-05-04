@@ -1,3 +1,5 @@
+import "./rechart.scss";
+
 import { FC, useEffect, useState } from "react";
 import {
   CartesianGrid,

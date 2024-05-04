@@ -3,6 +3,7 @@ import { MdRestartAlt } from "react-icons/md";
 
 import { Button } from "@/components/button/button.tsx";
 import { Dropdown } from "@/components/dropdown/dropdown.tsx";
+import { ErrorBanner } from "@/components/error-banner/error-banner.tsx";
 import { Graph } from "@/components/graph/graph.tsx";
 import { LoadingSpinner } from "@/components/loading-spinner/loading-spinner.tsx";
 import { usePopulationComposition } from "@/hooks/usePopulationComposition.ts";
@@ -81,19 +82,20 @@ type ErrorProps = {
 
 const ErrorDisplay: FC<ErrorProps> = ({ refetch }) => {
   return (
-    <div className={styles.error}>
-      <div className={styles.container}>
-        <h2 className={styles.title}>
+    <ErrorBanner
+      title={
+        <>
           人口データの取得に
           <wbr />
           失敗しました
-        </h2>
-        <div className={styles.control}>
-          <Button size={"medium"} variant={"primary"} onClick={() => refetch()}>
-            再試行
-          </Button>
-        </div>
+        </>
+      }
+    >
+      <div className={styles.control}>
+        <Button size={"medium"} variant={"primary"} onClick={() => refetch()}>
+          再試行
+        </Button>
       </div>
-    </div>
+    </ErrorBanner>
   );
 };

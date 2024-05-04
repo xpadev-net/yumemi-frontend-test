@@ -18,13 +18,15 @@
   }
   .body {
     background: var(--background-primary);
+    overflow-y: auto;
     border-radius: 16px;
-    padding: 16px;
+    padding: 40px 56px;
+    max-height: calc(100vh - 48px);
     margin: 24px;
   }
   @media only screen and (max-device-width: 768px) {
     .body {
-      padding: 40px 56px;
+      padding: 16px;
       margin: 24px;
     }
   }

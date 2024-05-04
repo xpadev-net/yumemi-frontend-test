@@ -8,6 +8,22 @@ const meta = {
     <Modal onBackgroundClick={() => console.log("bg clicked")}>
       <h1>test modal</h1>
       <p>test content</p>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </Modal>
   ),
 } satisfies Meta;

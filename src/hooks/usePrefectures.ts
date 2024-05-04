@@ -39,8 +39,10 @@ export const usePrefectures = () => {
       setCache((prev) => {
         if (response.type === "success") {
           prev[apiKey] = response.data;
-        } else {
+        } else if (prev[apiKey]) {
           delete prev[apiKey];
+        } else {
+          return prev;
         }
         return { ...prev };
       });

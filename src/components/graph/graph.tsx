@@ -1,4 +1,6 @@
-import { FC, useState } from "react";
+import "./rechart.scss";
+
+import { FC, useEffect, useState } from "react";
 import {
   CartesianGrid,
   Legend,
@@ -23,14 +25,14 @@ type Props = {
   onRangeChange?: (range: [number, number]) => void;
 };
 
-export const Graph: FC<Props> = ({ data, range: _range, onRangeChange }) => {
+export const Graph: FC<Props> = ({ data, range, onRangeChange }) => {
   const [dragStart, setDragStart] = useState<number | undefined>();
   const [dragEnd, setDragEnd] = useState<number | undefined>();
-  const range = _range ?? ["dataMin", "dataMax"];
   const [verticalRange, setVerticalRange] = useState<[number, number]>(
     getVerticalRange(data),
   );
   const [hiddenKeys, setHiddenKeys] = useState<string[]>([]);
+  const [colors, setColors] = useState<Record<string, string>>({});
 
   const zoom = () => {
     setDragStart(undefined);
@@ -53,6 +55,22 @@ export const Graph: FC<Props> = ({ data, range: _range, onRangeChange }) => {
     }
   };
 
+  useEffect(() => {
+    setVerticalRange(getVerticalRange(data, range));
+  }, [data, range]);
+
+  useEffect(() => {
+    const keys = Object.keys(data[0]).filter((key) => key !== "name");
+    setColors((pv) => {
+      for (const key of keys) {
+        pv[key] ??= `#${Math.floor(Math.random() * 16777215)
+          .toString(16)
+          .padStart(6, "0")}`;
+      }
+      return { ...pv };
+    });
+  }, [data]);
+
   return (
     <ResponsiveContainer width="100%" height={400}>
       <LineChart
@@ -64,7 +82,12 @@ export const Graph: FC<Props> = ({ data, range: _range, onRangeChange }) => {
         onMouseUp={zoom}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis allowDataOverflow dataKey="name" domain={range} type="number" />
+        <XAxis
+          allowDataOverflow
+          dataKey="name"
+          domain={range ?? ["dataMin", "dataMax"]}
+          type="number"
+        />
         <YAxis allowDataOverflow domain={verticalRange} type="number" />
         <Tooltip />
         <Legend onClick={onLegendClick} />
@@ -75,7 +98,7 @@ export const Graph: FC<Props> = ({ data, range: _range, onRangeChange }) => {
               key={key}
               type="natural"
               dataKey={key}
-              stroke="#8884d8"
+              stroke={colors[key]}
               hide={hiddenKeys.includes(key)}
             />
           ))}
@@ -89,11 +112,19 @@ export const Graph: FC<Props> = ({ data, range: _range, onRangeChange }) => {
 
 const getVerticalRange = (
   data: GraphData,
-  range: [number, number] = [0, data.length],
+  range?: [number, number],
   offset = 1.1,
 ): [number, number] => {
   let max = 0;
-  for (const item of data.slice(...range)) {
+  const slicedData = (() => {
+    if (!range) {
+      return data;
+    }
+    const start = data.findIndex((item) => item.name === range[0]);
+    const end = data.findIndex((item) => item.name === range[1]);
+    return data.slice(start, end + 1);
+  })();
+  for (const item of slicedData) {
     for (const [key, value] of Object.entries(item)) {
       if (key === "name") {
         continue;

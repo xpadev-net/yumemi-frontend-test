@@ -1,10 +1,10 @@
-import "@/App.css";
-
 import { useState } from "react";
 
 import { ApiKeyModal } from "@/components/api-key-modal/api-key-modal.tsx";
 import { PopulationGraph } from "@/components/population-graph/population-graph.tsx";
 import { PrefecturePicker } from "@/components/prefecture-picker/prefecture-picker.tsx";
+
+import styles from "./app.module.scss";
 
 function App() {
   const [selectedPrefectureIds, setSelectedPrefectureIds] = useState<string[]>(
@@ -12,7 +12,7 @@ function App() {
   );
 
   return (
-    <>
+    <div className={styles.wrapper}>
       <ApiKeyModal />
       <PrefecturePicker
         selectedPrefectureIds={selectedPrefectureIds}
@@ -21,7 +21,7 @@ function App() {
       {selectedPrefectureIds.length > 0 && (
         <PopulationGraph selectedPrefIds={selectedPrefectureIds.map(Number)} />
       )}
-    </>
+    </div>
   );
 }
 

@@ -38,3 +38,5 @@ export const ZPopulationCompositionResponse = z.object({
 export type TPopulationCompositionResponse = z.infer<
   typeof ZPopulationCompositionResponse
 >;
+
+export type TPopulationData = Record<number, TPopulationCompositionResponse>;

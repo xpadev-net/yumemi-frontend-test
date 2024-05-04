@@ -1,7 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { TErrorResponse } from "@/@types/api/error.ts";
-import { TPopulationCompositionResponse } from "@/@types/api/populationComposition.ts";
+import {
+  TPopulationCompositionResponse,
+  TPopulationData,
+} from "@/@types/api/populationComposition.ts";
 import { TApiResponse } from "@/@types/api/response";
 import { useApiKey } from "@/lib/localStorage.ts";
 import { getPopulationCompositionPerYear } from "@/services";
@@ -9,8 +12,7 @@ import { getPopulationCompositionPerYear } from "@/services";
 export const usePopulationComposition = (prefCodes: number[]) => {
   const { apiKey } = useApiKey();
 
-  const [data, setData] =
-    useState<TApiResponse<Record<number, TPopulationCompositionResponse>>>();
+  const [data, setData] = useState<TApiResponse<TPopulationData>>();
   const [loading, setLoading] = useState<boolean>(false);
 
   const fetchData = useCallback(

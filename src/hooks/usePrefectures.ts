@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { TPrefectureResponse } from "@/@types/api/prefectures.ts";
 import { TApiResponse } from "@/@types/api/response";
@@ -8,15 +8,15 @@ export const usePrefectures = () => {
   const [data, setData] = useState<TApiResponse<TPrefectureResponse>>();
   const [loading, setLoading] = useState<boolean>(false);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async (forceUpdate = true) => {
     setLoading(true);
-    const response = await getPrefectures();
+    const response = await getPrefectures(forceUpdate);
     setData(response);
     setLoading(false);
-  };
+  }, []);
 
   useEffect(() => {
-    void fetchData();
-  }, []);
+    void fetchData(false);
+  }, [fetchData]);
   return { data, loading, refetch: fetchData };
 };

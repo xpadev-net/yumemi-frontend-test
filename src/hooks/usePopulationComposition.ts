@@ -10,43 +10,46 @@ export const usePopulationComposition = (prefCodes: number[]) => {
     useState<TApiResponse<Record<number, TPopulationCompositionResponse>>>();
   const [loading, setLoading] = useState<boolean>(false);
 
-  const fetchData = useCallback(async () => {
-    setLoading(true);
-    const response = await Promise.all(
-      prefCodes.map(async (prefCode) => {
-        return {
-          data: await getPopulationCompositionPerYear(prefCode),
-          prefCode,
-        };
-      }),
-    );
-    const isFailed = response.find((res) => res.data.type !== "success");
-    if (isFailed) {
-      setData({
-        type: "error",
-        data: isFailed.data.data as TErrorResponse,
-      });
-    } else {
-      const data = response.reduce(
-        (acc, res) => {
-          if (res.data.type !== "success") return acc;
+  const fetchData = useCallback(
+    async (forceUpdate = true) => {
+      setLoading(true);
+      const response = await Promise.all(
+        prefCodes.map(async (prefCode) => {
           return {
-            ...acc,
-            [res.prefCode]: res.data.data,
+            data: await getPopulationCompositionPerYear(prefCode, forceUpdate),
+            prefCode,
           };
-        },
-        {} as Record<string, TPopulationCompositionResponse>,
+        }),
       );
-      setData({
-        type: "success",
-        data,
-      });
-    }
-    setLoading(false);
-  }, [prefCodes]);
+      const isFailed = response.find((res) => res.data.type !== "success");
+      if (isFailed) {
+        setData({
+          type: "error",
+          data: isFailed.data.data as TErrorResponse,
+        });
+      } else {
+        const data = response.reduce(
+          (acc, res) => {
+            if (res.data.type !== "success") return acc;
+            return {
+              ...acc,
+              [res.prefCode]: res.data.data,
+            };
+          },
+          {} as Record<string, TPopulationCompositionResponse>,
+        );
+        setData({
+          type: "success",
+          data,
+        });
+      }
+      setLoading(false);
+    },
+    [prefCodes],
+  );
 
   useEffect(() => {
-    void fetchData();
+    void fetchData(false);
   }, [fetchData]);
 
   return { data, loading, refetch: fetchData };

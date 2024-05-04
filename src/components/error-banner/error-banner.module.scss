@@ -1,0 +1,24 @@
+.wrapper {
+  border-radius: 12px;
+  display: grid;
+  grid-template: "icon title" 32px ". content" 1fr / 32px 1fr;
+  border: solid 1px var(--border-alert);
+  padding: 16px;
+  grid-gap: 16px;
+  .icon {
+    grid-area: icon;
+    width: 32px;
+    height: 32px;
+    fill: var(--text-alert);
+  }
+  .title {
+    grid-area: title;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-body);
+    line-height: 32px;
+  }
+  .content {
+    grid-area: content;
+  }
+}

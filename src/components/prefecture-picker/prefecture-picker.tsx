@@ -2,6 +2,7 @@ import { FC, useCallback, useMemo } from "react";
 
 import { Button } from "@/components/button/button.tsx";
 import { Checkbox } from "@/components/checkbox/checkbox.tsx";
+import { ErrorBanner } from "@/components/error-banner/error-banner.tsx";
 import { LoadingSpinner } from "@/components/loading-spinner/loading-spinner.tsx";
 import { usePrefectures } from "@/hooks/usePrefectures.ts";
 import { useApiKey } from "@/lib/localStorage.ts";
@@ -43,31 +44,24 @@ export const PrefecturePicker: FC<Props> = ({
 
   if (!values) {
     return (
-      <div className={styles.error}>
-        <div className={styles.container}>
-          <h2 className={styles.title}>
+      <ErrorBanner
+        title={
+          <>
             都道府県データの取得に
             <wbr />
             失敗しました
-          </h2>
-          <div className={styles.control}>
-            <Button
-              size={"medium"}
-              variant={"secondary"}
-              onClick={removeApikey}
-            >
-              APIキーを変更
-            </Button>
-            <Button
-              size={"medium"}
-              variant={"primary"}
-              onClick={() => refetch()}
-            >
-              再試行
-            </Button>
-          </div>
+          </>
+        }
+      >
+        <div className={styles.control}>
+          <Button size={"medium"} variant={"secondary"} onClick={removeApikey}>
+            APIキーを変更
+          </Button>
+          <Button size={"medium"} variant={"primary"} onClick={() => refetch()}>
+            再試行
+          </Button>
         </div>
-      </div>
+      </ErrorBanner>
     );
   }
 

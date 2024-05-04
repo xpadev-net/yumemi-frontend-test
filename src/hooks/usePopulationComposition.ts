@@ -3,9 +3,12 @@ import { useCallback, useEffect, useState } from "react";
 import { TErrorResponse } from "@/@types/api/error.ts";
 import { TPopulationCompositionResponse } from "@/@types/api/populationComposition.ts";
 import { TApiResponse } from "@/@types/api/response";
+import { useApiKey } from "@/lib/localStorage.ts";
 import { getPopulationCompositionPerYear } from "@/services";
 
 export const usePopulationComposition = (prefCodes: number[]) => {
+  const { apiKey } = useApiKey();
+
   const [data, setData] =
     useState<TApiResponse<Record<number, TPopulationCompositionResponse>>>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -13,10 +16,26 @@ export const usePopulationComposition = (prefCodes: number[]) => {
   const fetchData = useCallback(
     async (forceUpdate = true) => {
       setLoading(true);
+      if (!apiKey) {
+        setData({
+          type: "error",
+          data: {
+            message: "APIキーが設定されていません",
+            statusCode: -1,
+            description: "APIキーを設定してください",
+          },
+        });
+        setLoading(false);
+        return;
+      }
       const response = await Promise.all(
         prefCodes.map(async (prefCode) => {
           return {
-            data: await getPopulationCompositionPerYear(prefCode, forceUpdate),
+            data: await getPopulationCompositionPerYear(
+              apiKey,
+              prefCode,
+              forceUpdate,
+            ),
             prefCode,
           };
         }),
@@ -45,12 +64,12 @@ export const usePopulationComposition = (prefCodes: number[]) => {
       }
       setLoading(false);
     },
-    [prefCodes],
+    [prefCodes, apiKey],
   );
 
   useEffect(() => {
     void fetchData(false);
-  }, [fetchData]);
+  }, [fetchData, apiKey]);
 
   return { data, loading, refetch: fetchData };
 };

@@ -49,8 +49,10 @@ export const usePopulationComposition = (prefCodes: number[]) => {
             prev[apiKey] ??= {};
             if (data.type === "success") {
               prev[apiKey][prefCode] = data.data;
-            } else {
+            } else if (prev[apiKey][prefCode]) {
               delete prev[apiKey][prefCode];
+            } else {
+              return prev;
             }
             return { ...prev };
           });

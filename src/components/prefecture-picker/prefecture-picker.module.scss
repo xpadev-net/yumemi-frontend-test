@@ -1,0 +1,26 @@
+.loading {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: center;
+  height: 300px;
+  align-items: center;
+  color: var(--text-body);
+}
+.error {
+  display: grid;
+  place-items: center;
+  height: 300px;
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: var(--text-alert);
+    .control {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+  }
+}

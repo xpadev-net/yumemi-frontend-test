@@ -1,0 +1,30 @@
+.wrapper {
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  .background {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+  .body {
+    background: var(--background-primary);
+    border-radius: 16px;
+    padding: 16px;
+    margin: 24px;
+  }
+  @media only screen and (max-device-width: 768px) {
+    .body {
+      padding: 40px 56px;
+      margin: 24px;
+    }
+  }
+}

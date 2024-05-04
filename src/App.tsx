@@ -4,12 +4,14 @@ import { useState } from "react";
 
 import viteLogo from "/vite.svg";
 import reactLogo from "@/assets/react.svg";
+import { ApiKeyModal } from "@/components/api-key-modal/api-key-modal.tsx";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
+      <ApiKeyModal />
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />

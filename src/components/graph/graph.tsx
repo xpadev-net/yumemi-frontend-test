@@ -19,15 +19,14 @@ type GraphData = {
 
 type Props = {
   data: GraphData;
+  range?: [number, number];
+  onRangeChange?: (range: [number, number]) => void;
 };
 
-export const Graph: FC<Props> = ({ data }) => {
+export const Graph: FC<Props> = ({ data, range: _range, onRangeChange }) => {
   const [dragStart, setDragStart] = useState<number | undefined>();
   const [dragEnd, setDragEnd] = useState<number | undefined>();
-  const [range, setRange] = useState<[number | string, number | string]>([
-    "dataMin",
-    "dataMax",
-  ]);
+  const range = _range ?? ["dataMin", "dataMax"];
   const [verticalRange, setVerticalRange] = useState<[number, number]>(
     getVerticalRange(data),
   );
@@ -41,7 +40,7 @@ export const Graph: FC<Props> = ({ data }) => {
     }
     const left = Math.min(dragStart, dragEnd);
     const right = Math.max(dragStart, dragEnd);
-    setRange([left, right]);
+    onRangeChange?.([left, right]);
     setVerticalRange(getVerticalRange(data, [left, right]));
   };
 

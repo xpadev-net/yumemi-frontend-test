@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
 
 import { Graph } from "./graph.tsx";
 
@@ -27,7 +28,10 @@ const data = [
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-  component: () => <Graph data={data} />,
+  component: () => {
+    const [range, setRange] = useState<[number, number] | undefined>(undefined);
+    return <Graph data={data} range={range} onRangeChange={setRange} />;
+  },
 } satisfies Meta;
 
 export default meta;

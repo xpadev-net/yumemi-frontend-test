@@ -1,3 +1,4 @@
+import { useAtom } from "jotai";
 import { useCallback, useEffect, useState } from "react";
 
 import { TErrorResponse } from "@/@types/api/error.ts";
@@ -6,12 +7,14 @@ import {
   TPopulationData,
 } from "@/@types/api/populationComposition.ts";
 import { TApiResponse } from "@/@types/api/response";
+import { populationCompositionCacheAtom } from "@/atoms/cache-atom.ts";
 import { useApiKey } from "@/lib/localStorage.ts";
 import { getPopulationCompositionPerYear } from "@/services";
 
 export const usePopulationComposition = (prefCodes: number[]) => {
   const { apiKey } = useApiKey();
 
+  const [cache, setCache] = useAtom(populationCompositionCacheAtom);
   const [data, setData] = useState<TApiResponse<TPopulationData>>();
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -32,12 +35,27 @@ export const usePopulationComposition = (prefCodes: number[]) => {
       }
       const response = await Promise.all(
         prefCodes.map(async (prefCode) => {
-          return {
-            data: await getPopulationCompositionPerYear(
-              apiKey,
+          if (!forceUpdate && cache[apiKey]?.[prefCode]) {
+            return {
+              data: {
+                type: "success",
+                data: cache[apiKey][prefCode],
+              },
               prefCode,
-              forceUpdate,
-            ),
+            };
+          }
+          const data = await getPopulationCompositionPerYear(apiKey, prefCode);
+          setCache((prev) => {
+            prev[apiKey] ??= {};
+            if (data.type === "success") {
+              prev[apiKey][prefCode] = data.data;
+            } else {
+              delete prev[apiKey][prefCode];
+            }
+            return { ...prev };
+          });
+          return {
+            data,
             prefCode,
           };
         }),
@@ -66,7 +84,7 @@ export const usePopulationComposition = (prefCodes: number[]) => {
       }
       setLoading(false);
     },
-    [prefCodes, apiKey],
+    [prefCodes, apiKey, cache, setCache],
   );
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 import "./rechart.scss";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import {
   CartesianGrid,
   Legend,
@@ -32,7 +32,13 @@ export const Graph: FC<Props> = ({ data, range, onRangeChange }) => {
     getVerticalRange(data),
   );
   const [hiddenKeys, setHiddenKeys] = useState<string[]>([]);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const [colors, setColors] = useState<Record<string, string>>({});
+
+  const keys = useMemo(
+    () => Object.keys(data[0]).filter((key) => key !== "name"),
+    [data],
+  );
 
   const zoom = () => {
     setDragStart(undefined);
@@ -59,17 +65,39 @@ export const Graph: FC<Props> = ({ data, range, onRangeChange }) => {
     setVerticalRange(getVerticalRange(data, range));
   }, [data, range]);
 
+  const regenerateColors = (isDarkMode: boolean) => {
+    const newColors: Record<string, string> = {};
+    for (const key of keys) {
+      newColors[key] = generateRandomColor(isDarkMode);
+    }
+    setColors(newColors);
+  };
+
   useEffect(() => {
-    const keys = Object.keys(data[0]).filter((key) => key !== "name");
     setColors((pv) => {
       for (const key of keys) {
-        pv[key] ??= `#${Math.floor(Math.random() * 16777215)
-          .toString(16)
-          .padStart(6, "0")}`;
+        pv[key] ??= generateRandomColor(isDarkMode);
       }
       return { ...pv };
     });
-  }, [data]);
+  }, [data, isDarkMode, keys]);
+
+  const setDarkMode = (isDarkMode: boolean) => {
+    setIsDarkMode(isDarkMode);
+    regenerateColors(isDarkMode);
+  };
+
+  useEffect(() => {
+    const mediaQueryList = window.matchMedia("(prefers-color-scheme: dark)");
+    const handler = (event: MediaQueryListEvent) => {
+      setDarkMode(event.matches);
+    };
+    setDarkMode(window.matchMedia("(prefers-color-scheme: dark)").matches);
+    mediaQueryList.addEventListener("change", handler);
+    return () => {
+      mediaQueryList.removeEventListener("change", handler);
+    };
+  }, []);
 
   return (
     <ResponsiveContainer width="100%" height={400}>
@@ -91,17 +119,15 @@ export const Graph: FC<Props> = ({ data, range, onRangeChange }) => {
         <YAxis allowDataOverflow domain={verticalRange} type="number" />
         <Tooltip />
         <Legend onClick={onLegendClick} />
-        {Object.keys(data[0])
-          .filter((key) => key !== "name")
-          .map((key) => (
-            <Line
-              key={key}
-              type="natural"
-              dataKey={key}
-              stroke={colors[key]}
-              hide={hiddenKeys.includes(key)}
-            />
-          ))}
+        {keys.map((key) => (
+          <Line
+            key={key}
+            type="natural"
+            dataKey={key}
+            stroke={colors[key]}
+            hide={hiddenKeys.includes(key)}
+          />
+        ))}
         {dragStart && dragEnd && (
           <ReferenceArea x1={dragStart} x2={dragEnd} strokeOpacity={0.3} />
         )}
@@ -135,4 +161,17 @@ const getVerticalRange = (
     }
   }
   return [0, Math.round(max * offset)];
+};
+
+const generateRandomColor = (isDarkMode: boolean) => {
+  return (
+    "#" +
+    [0, 0, 0]
+      .map(() =>
+        (Math.floor(Math.random() * 128) + (isDarkMode ? 128 : 0))
+          .toString(16)
+          .padStart(2, "0"),
+      )
+      .join("")
+  );
 };

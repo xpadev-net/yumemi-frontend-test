@@ -115,8 +115,16 @@ export const Graph: FC<Props> = ({ data, range, onRangeChange }) => {
           dataKey="name"
           domain={range ?? ["dataMin", "dataMax"]}
           type="number"
+          unit={"年"}
+          height={60}
         />
-        <YAxis allowDataOverflow domain={verticalRange} type="number" />
+        <YAxis
+          allowDataOverflow
+          domain={verticalRange}
+          type="number"
+          unit={"人"}
+          width={100}
+        />
         <Tooltip />
         <Legend onClick={onLegendClick} />
         {keys.map((key) => (

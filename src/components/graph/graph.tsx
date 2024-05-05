@@ -1,6 +1,6 @@
 import "./rechart.scss";
 
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import {
   CartesianGrid,
   Legend,
@@ -65,13 +65,16 @@ export const Graph: FC<Props> = ({ data, range, onRangeChange }) => {
     setVerticalRange(getVerticalRange(data, range));
   }, [data, range]);
 
-  const regenerateColors = (isDarkMode: boolean) => {
-    const newColors: Record<string, string> = {};
-    for (const key of keys) {
-      newColors[key] = generateRandomColor(isDarkMode);
-    }
-    setColors(newColors);
-  };
+  const regenerateColors = useCallback(
+    (isDarkMode: boolean) => {
+      const newColors: Record<string, string> = {};
+      for (const key of keys) {
+        newColors[key] = generateRandomColor(isDarkMode);
+      }
+      setColors(newColors);
+    },
+    [keys],
+  );
 
   useEffect(() => {
     setColors((pv) => {
@@ -82,10 +85,13 @@ export const Graph: FC<Props> = ({ data, range, onRangeChange }) => {
     });
   }, [data, isDarkMode, keys]);
 
-  const setDarkMode = (isDarkMode: boolean) => {
-    setIsDarkMode(isDarkMode);
-    regenerateColors(isDarkMode);
-  };
+  const setDarkMode = useCallback(
+    (isDarkMode: boolean) => {
+      setIsDarkMode(isDarkMode);
+      regenerateColors(isDarkMode);
+    },
+    [regenerateColors],
+  );
 
   useEffect(() => {
     const mediaQueryList = window.matchMedia("(prefers-color-scheme: dark)");
@@ -97,7 +103,7 @@ export const Graph: FC<Props> = ({ data, range, onRangeChange }) => {
     return () => {
       mediaQueryList.removeEventListener("change", handler);
     };
-  }, []);
+  }, [setDarkMode]);
 
   return (
     <ResponsiveContainer width="100%" height={400}>

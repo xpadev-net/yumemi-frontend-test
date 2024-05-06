@@ -1,0 +1,37 @@
+.wrapper {
+  color: var(--text-body);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  .label {
+    display: flex;
+    flex-direction: row;
+    .required {
+      color: var(--text-alert);
+    }
+  }
+  .container {
+    position: relative;
+    .arrowDown {
+      position: absolute;
+      right: 16px;
+      top: 20px;
+      width: 16px;
+      height: 16px;
+      pointer-events: none;
+    }
+    .select {
+      color: var(--text-body);
+      padding: 16px 32px 16px 16px;
+      appearance: none;
+      border: solid 1px var(--border-field);
+      background: var(--background-primary);
+      border-radius: 8px;
+      width: 100%;
+      &:focus {
+        outline-offset: -1px;
+        outline: solid 3px var(--border-focused);
+      }
+    }
+  }
+}

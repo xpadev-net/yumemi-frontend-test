@@ -10,10 +10,10 @@ type Props = {
 
 export const ErrorBanner: FC<Props> = ({ title, children }) => {
   return (
-    <div className={styles.wrapper}>
+    <section className={styles.wrapper}>
       <MdError className={styles.icon} />
       <h2 className={styles.title}>{title}</h2>
       <div className={styles.content}>{children}</div>
-    </div>
+    </section>
   );
 };

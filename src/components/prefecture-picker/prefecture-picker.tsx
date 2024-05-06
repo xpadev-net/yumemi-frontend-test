@@ -35,38 +35,50 @@ export const PrefecturePicker: FC<Props> = ({
 
   if (loading) {
     return (
-      <div className={styles.loading}>
-        <LoadingSpinner />
-        <span>都道府県データを読み込んでいます...</span>
-      </div>
+      <section>
+        <div className={styles.loading}>
+          <LoadingSpinner />
+          <span>都道府県データを読み込んでいます...</span>
+        </div>
+      </section>
     );
   }
 
   if (!values) {
     return (
-      <ErrorBanner
-        title={
-          <>
-            都道府県データの取得に
-            <wbr />
-            失敗しました
-          </>
-        }
-      >
-        <div className={styles.control}>
-          <Button size={"medium"} variant={"secondary"} onClick={removeApikey}>
-            APIキーを変更
-          </Button>
-          <Button size={"medium"} variant={"primary"} onClick={() => refetch()}>
-            再試行
-          </Button>
-        </div>
-      </ErrorBanner>
+      <section>
+        <ErrorBanner
+          title={
+            <>
+              都道府県データの取得に
+              <wbr />
+              失敗しました
+            </>
+          }
+        >
+          <div className={styles.control}>
+            <Button
+              size={"medium"}
+              variant={"secondary"}
+              onClick={removeApikey}
+            >
+              APIキーを変更
+            </Button>
+            <Button
+              size={"medium"}
+              variant={"primary"}
+              onClick={() => refetch()}
+            >
+              再試行
+            </Button>
+          </div>
+        </ErrorBanner>
+      </section>
     );
   }
 
   return (
-    <div>
+    <section>
       <Checkbox
         label={"都道府県"}
         required={true}
@@ -75,6 +87,6 @@ export const PrefecturePicker: FC<Props> = ({
         variant={"horizontal"}
         onChange={onChange}
       />
-    </div>
+    </section>
   );
 };

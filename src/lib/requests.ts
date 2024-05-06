@@ -1,4 +1,4 @@
-import { env } from "@/env.ts";
+import { env } from "@/env";
 
 export const requests = async (
   apiKey: string,

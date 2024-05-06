@@ -1,10 +1,10 @@
-import { ZErrorResponse } from "@/@types/api/error.ts";
+import { ZErrorResponse } from "@/@types/api/error";
 import {
   TPrefectureResponse,
   ZPrefectureResponse,
-} from "@/@types/api/prefectures.ts";
+} from "@/@types/api/prefectures";
 import { TApiResponse } from "@/@types/api/response";
-import { requests } from "@/lib/requests.ts";
+import { requests } from "@/lib";
 
 export const getPrefectures = async (
   apikey: string,

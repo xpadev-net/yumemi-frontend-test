@@ -1,10 +1,10 @@
-import { ZErrorResponse } from "@/@types/api/error.ts";
+import { ZErrorResponse } from "@/@types/api/error";
 import {
   TPopulationCompositionResponse,
   ZPopulationCompositionResponse,
-} from "@/@types/api/populationComposition.ts";
+} from "@/@types/api/populationComposition";
 import { TApiResponse } from "@/@types/api/response";
-import { requests } from "@/lib/requests.ts";
+import { requests } from "@/lib";
 
 export const getPopulationCompositionPerYear = async (
   apikey: string,

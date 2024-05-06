@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { ApiKeyModal } from "@/components/api-key-modal/api-key-modal.tsx";
+import { ApiKeyModal } from "@/components/api-key-modal/api-key-modal";
 
-import { PopulationGraph } from "./population-graph.tsx";
+import { PopulationGraph } from "./population-graph";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {

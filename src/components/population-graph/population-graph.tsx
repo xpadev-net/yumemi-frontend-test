@@ -1,14 +1,13 @@
 import { FC, useMemo, useState } from "react";
 import { MdRestartAlt } from "react-icons/md";
 
-import { Button } from "@/components/button/button.tsx";
-import { Dropdown } from "@/components/dropdown/dropdown.tsx";
-import { ErrorBanner } from "@/components/error-banner/error-banner.tsx";
-import { Graph } from "@/components/graph/graph.tsx";
-import { LoadingSpinner } from "@/components/loading-spinner/loading-spinner.tsx";
-import { usePopulationComposition } from "@/hooks/usePopulationComposition.ts";
-import { usePrefectures } from "@/hooks/usePrefectures.ts";
-import { transformPopulation } from "@/lib/population-transformer.ts";
+import { Button } from "@/components/button";
+import { Dropdown } from "@/components/dropdown";
+import { ErrorBanner } from "@/components/error-banner";
+import { Graph } from "@/components/graph";
+import { LoadingSpinner } from "@/components/loading-spinner";
+import { usePopulationComposition, usePrefectures } from "@/hooks";
+import { transformPopulation } from "@/lib";
 
 import styles from "./population-graph.module.scss";
 

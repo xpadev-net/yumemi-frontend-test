@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import { ApiKeyModal } from "@/components/api-key-modal/api-key-modal.tsx";
-import { PopulationGraph } from "@/components/population-graph/population-graph.tsx";
-import { PrefecturePicker } from "@/components/prefecture-picker/prefecture-picker.tsx";
+import { ApiKeyModal } from "@/components/api-key-modal";
+import { PopulationGraph } from "@/components/population-graph";
+import { PrefecturePicker } from "@/components/prefecture-picker";
 
 import styles from "./app.module.scss";
 

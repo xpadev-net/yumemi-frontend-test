@@ -1,10 +1,10 @@
 import { useAtom } from "jotai";
 import { useCallback, useEffect, useState } from "react";
 
-import { TPrefectureResponse } from "@/@types/api/prefectures.ts";
+import { TPrefectureResponse } from "@/@types/api/prefectures";
 import { TApiResponse } from "@/@types/api/response";
-import { prefectureCacheAtom } from "@/atoms/cache-atom.ts";
-import { useApiKey } from "@/lib/localStorage.ts";
+import { prefectureCacheAtom } from "@/atoms";
+import { useApiKey } from "@/lib";
 import { getPrefectures } from "@/services";
 
 export const usePrefectures = () => {

@@ -1,4 +1,4 @@
-import { TErrorResponse } from "@/@types/api/error.ts";
+import { TErrorResponse } from "@/@types/api/error";
 
 export type TApiResponse<T> =
   | {

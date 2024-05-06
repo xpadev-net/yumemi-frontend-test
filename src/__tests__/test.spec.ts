@@ -1,6 +1,6 @@
 import { expect, Page, test } from "@playwright/test";
 
-import { mockRESASApi, prefectureData } from "@/__tests__/mock.ts";
+import { mockRESASApi, prefectureData } from "@/__tests__/mock";
 
 test("flow test: valid api key", async ({ page }) => {
   await mockRESASApi(page);

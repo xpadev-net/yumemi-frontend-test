@@ -1,5 +1,5 @@
-import { TPopulationData } from "@/@types/api/populationComposition.ts";
-import { TPrefectures } from "@/@types/api/prefectures.ts";
+import { TPopulationData } from "@/@types/api/populationComposition";
+import { TPrefectures } from "@/@types/api/prefectures";
 
 export const transformPopulation = (
   prefectures: TPrefectures,

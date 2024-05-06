@@ -43,7 +43,7 @@ export const PopulationGraph: FC<Props> = ({ selectedPrefIds }) => {
     return <ErrorDisplay refetch={refetch} />;
   }
   return (
-    <div>
+    <section>
       <div className={styles.control}>
         <Dropdown
           label={"データ"}
@@ -62,16 +62,18 @@ export const PopulationGraph: FC<Props> = ({ selectedPrefIds }) => {
         </Button>
       </div>
       <Graph data={graphData} range={range} onRangeChange={setRange} />
-    </div>
+    </section>
   );
 };
 
 const LoadingDisplay: FC = () => {
   return (
-    <div className={styles.loading}>
-      <LoadingSpinner />
-      <span>人口データを読み込んでいます...</span>
-    </div>
+    <section>
+      <div className={styles.loading}>
+        <LoadingSpinner />
+        <span>人口データを読み込んでいます...</span>
+      </div>
+    </section>
   );
 };
 
@@ -81,20 +83,22 @@ type ErrorProps = {
 
 const ErrorDisplay: FC<ErrorProps> = ({ refetch }) => {
   return (
-    <ErrorBanner
-      title={
-        <>
-          人口データの取得に
-          <wbr />
-          失敗しました
-        </>
-      }
-    >
-      <div className={styles.control}>
-        <Button size={"medium"} variant={"primary"} onClick={() => refetch()}>
-          再試行
-        </Button>
-      </div>
-    </ErrorBanner>
+    <section>
+      <ErrorBanner
+        title={
+          <>
+            人口データの取得に
+            <wbr />
+            失敗しました
+          </>
+        }
+      >
+        <div className={styles.control}>
+          <Button size={"medium"} variant={"primary"} onClick={() => refetch()}>
+            再試行
+          </Button>
+        </div>
+      </ErrorBanner>
+    </section>
   );
 };

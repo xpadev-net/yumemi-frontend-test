@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 
-import { Graph } from "./graph.tsx";
+import { Graph } from "./graph";
 
 const data = [
   { name: 1, cost: 4.11, impression: 100 },

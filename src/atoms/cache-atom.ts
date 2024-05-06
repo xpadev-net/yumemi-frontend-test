@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 
-import { TPopulationCompositionResponse } from "@/@types/api/populationComposition.ts";
-import { TPrefectureResponse } from "@/@types/api/prefectures.ts";
+import { TPopulationCompositionResponse } from "@/@types/api/populationComposition";
+import { TPrefectureResponse } from "@/@types/api/prefectures";
 
 export const prefectureCacheAtom = atom<Record<string, TPrefectureResponse>>(
   {},

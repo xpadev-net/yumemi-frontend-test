@@ -1,9 +1,9 @@
 import { useCallback, useRef } from "react";
 
-import { Button } from "@/components/button/button.tsx";
-import { Modal } from "@/components/modal/modal.tsx";
-import { TextInput } from "@/components/text-input/text-input.tsx";
-import { useApiKey } from "@/lib/localStorage.ts";
+import { Button } from "@/components/button";
+import { Modal } from "@/components/modal";
+import { TextInput } from "@/components/text-input";
+import { useApiKey } from "@/lib";
 
 import styles from "./api-key-modal.module.scss";
 

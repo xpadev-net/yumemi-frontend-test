@@ -1,11 +1,11 @@
 import { FC, useCallback, useMemo } from "react";
 
-import { Button } from "@/components/button/button.tsx";
-import { Checkbox } from "@/components/checkbox/checkbox.tsx";
-import { ErrorBanner } from "@/components/error-banner/error-banner.tsx";
-import { LoadingSpinner } from "@/components/loading-spinner/loading-spinner.tsx";
-import { usePrefectures } from "@/hooks/usePrefectures.ts";
-import { useApiKey } from "@/lib/localStorage.ts";
+import { Button } from "@/components/button";
+import { Checkbox } from "@/components/checkbox";
+import { ErrorBanner } from "@/components/error-banner";
+import { LoadingSpinner } from "@/components/loading-spinner";
+import { usePrefectures } from "@/hooks";
+import { useApiKey } from "@/lib";
 
 import styles from "./prefecture-picker.module.scss";
 

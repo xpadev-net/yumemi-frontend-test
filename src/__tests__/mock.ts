@@ -1,8 +1,8 @@
 import { Page, Request, Route } from "@playwright/test";
 
-import { TErrorResponse } from "@/@types/api/error.ts";
-import { TPopulationCompositionResponse } from "@/@types/api/populationComposition.ts";
-import { TPrefectureResponse, TPrefectures } from "@/@types/api/prefectures.ts";
+import { TErrorResponse } from "@/@types/api/error";
+import { TPopulationCompositionResponse } from "@/@types/api/populationComposition";
+import { TPrefectureResponse, TPrefectures } from "@/@types/api/prefectures";
 
 export const mockRESASApi = async (page: Page) => {
   await page.route(

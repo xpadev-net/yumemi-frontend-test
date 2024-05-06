@@ -1,14 +1,14 @@
 import { useAtom } from "jotai";
 import { useCallback, useEffect, useState } from "react";
 
-import { TErrorResponse } from "@/@types/api/error.ts";
+import { TErrorResponse } from "@/@types/api/error";
 import {
   TPopulationCompositionResponse,
   TPopulationData,
-} from "@/@types/api/populationComposition.ts";
+} from "@/@types/api/populationComposition";
 import { TApiResponse } from "@/@types/api/response";
-import { populationCompositionCacheAtom } from "@/atoms/cache-atom.ts";
-import { useApiKey } from "@/lib/localStorage.ts";
+import { populationCompositionCacheAtom } from "@/atoms";
+import { useApiKey } from "@/lib";
 import { getPopulationCompositionPerYear } from "@/services";
 
 export const usePopulationComposition = (prefCodes: number[]) => {

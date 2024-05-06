@@ -11,7 +11,7 @@ export const Modal: FC<Props> = ({ children, onBackgroundClick }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.background} onClick={onBackgroundClick} />
-      <dialog className={styles.body}>{children}</dialog>
+      <div className={styles.body}>{children}</div>
     </div>
   );
 };

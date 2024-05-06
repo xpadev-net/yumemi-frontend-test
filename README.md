@@ -24,3 +24,7 @@ pnpm dev
 ```bash
 pnpm build
 ```
+
+## クレジット
+データソースに [RESAS API](https://opendata.resas-portal.go.jp/) を使用しています。
+デザインは [デジタル庁デザインシステム](https://www.digital.go.jp/policies/servicedesign/designsystem/) に準拠しています
